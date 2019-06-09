@@ -8,6 +8,10 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     GameObject[] _block;
 
+    [SerializeField]
+    GameObject _blockParent;
+
+
     private int _num;
     private float spawnTime = 3;
     private float timeElapsed;
@@ -29,6 +33,9 @@ public class Spawner : MonoBehaviour
         _num = Random.Range(0, _block.Length);
         GameObject BlockController = Instantiate(_block[_num], transform.position, transform.rotation);
 
+
+        BlockController.transform.parent = _blockParent.transform;
         BlockController.AddComponent<PlayerController>();
+
     }
 }
