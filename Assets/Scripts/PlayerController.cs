@@ -10,18 +10,17 @@ public class PlayerController : MonoBehaviour
     private float timeElapsed = 0;
     private float _blockStayTime = 0;
 
-    private Transform _blockPos;
+    private Vector2 _blockPos;
 
     private bool _collisionRight = false;
     private bool _collisionLeft = false;
     private bool _collisionUnder = false;
-//    private bool _coll
 
     // Start is called before the first frame update
     void Start()
     {
 
-        _blockPos = this.transform;
+        _blockPos = this.transform.position;
 
     }
 
@@ -74,7 +73,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
+
     private void DownMoveBlock()
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -90,7 +89,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-                this.transform.Rotate(0.0f, 0.0f, 90.0f);
+            this.transform.Rotate(0.0f, 0.0f, 90.0f);
         }
 
     }
@@ -101,11 +100,11 @@ public class PlayerController : MonoBehaviour
         {
             _collisionRight = true;
         }
-        if(col.gameObject.name == "Flame_Left")
+        if (col.gameObject.name == "Flame_Left")
         {
             _collisionLeft = true;
         }
-        if(col.gameObject.name == "Flame_Under" || col.gameObject.tag == "block")
+        if (col.gameObject.name == "Flame_Under" || col.gameObject.tag == "Block")
         {
             _collisionUnder = true;
         }
@@ -121,7 +120,7 @@ public class PlayerController : MonoBehaviour
         {
             _collisionLeft = false;
         }
-        if (col.gameObject.name == "Flame_Under" || col.gameObject.tag == "block")
+        if (col.gameObject.name == "Flame_Under" || col.gameObject.tag == "Block")
         {
             _collisionUnder = false;
         }
@@ -131,11 +130,11 @@ public class PlayerController : MonoBehaviour
     private void BlockFixed()
     {
 
-        if (_blockPos.position.y != this.transform.position.y)
+        if (_blockPos.y != this.transform.position.y)
         {
             _blockStayTime = 0.0f;
 
-            _blockPos = this.transform;
+            _blockPos = this.transform.position;
 
         }
 
@@ -148,11 +147,10 @@ public class PlayerController : MonoBehaviour
     private void Clamp()
     {
         Vector2 pos = this.transform.position;
-        
+
         pos.x = Mathf.Clamp(pos.x, -5.0f, 5.0f);
         pos.y = Mathf.Clamp(pos.y, -10.0f, 10.0f);
 
         transform.position = new Vector2(pos.x, pos.y);
     }
-
 }
